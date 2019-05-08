@@ -4,8 +4,8 @@ import 'package:flutter_web/material.dart';
 class LaunchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      child: SafeArea(
+    return Scaffold(
+      body: SafeArea(
         child: Stack(
           children: <Widget>[
             Align(
