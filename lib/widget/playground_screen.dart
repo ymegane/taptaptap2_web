@@ -1,6 +1,7 @@
 import 'package:flutter_web/material.dart';
 import 'package:taptaptap2_web/bloc/shapes_bloc.dart';
 import 'package:taptaptap2_web/bloc/shapes_bloc_provider.dart';
+import 'package:taptaptap2_web/util/app_icons.dart';
 import 'package:taptaptap2_web/widget/playground.dart';
 
 class PlaygroundScreen extends StatelessWidget {
@@ -32,7 +33,7 @@ class PlaygroundScreen extends StatelessWidget {
         height: 48,
         child: RaisedButton(
           color: Colors.white,
-          child: const Icon(Icons.close),
+          child: const Icon(AppIcons.close),
           shape: CircleBorder(),
           onPressed: () => Navigator.of(context).pop(),
         ),

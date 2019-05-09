@@ -18,6 +18,7 @@ class LaunchScreen extends StatelessWidget {
                     'TapTapTap',
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                      fontFamily: 'LuckiestGuy',
                       fontSize: 48.0,
                     ),
                   ),
