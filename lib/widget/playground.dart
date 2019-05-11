@@ -1,3 +1,6 @@
+import 'dart:math';
+import 'dart:web_audio';
+
 import 'package:flutter_web/gestures.dart';
 import 'package:flutter_web/material.dart';
 import 'package:rxdart/rxdart.dart';
@@ -14,9 +17,23 @@ class _PlaygroundState extends State<Playground> {
   PublishSubject<DragUpdateDetails> _moveEvents;
   PublishSubject<ShapesBloc> _soundController;
 
+  final AudioContext _audioContext = AudioContext();
+  final List<AudioBuffer> _soundEffects = <AudioBuffer>[];
+
   @override
   void initState() {
     super.initState();
+
+    _loadEffectSounds(context).then((List<AudioBuffer> effects) {
+      _soundEffects.addAll(effects);
+    });
+
+    _soundController = PublishSubject<ShapesBloc>();
+    _soundController
+        .throttle(Duration(milliseconds: 2000))
+        .listen((ShapesBloc bloc) {
+      _playEffect();
+    });
   }
 
   @override
@@ -92,5 +109,49 @@ class _PlaygroundState extends State<Playground> {
       ),
     );
     _soundController.add(bloc);
+  }
+
+  Future<List<AudioBuffer>> _loadEffectSounds(BuildContext context) async {
+    final AudioBuffer sound1 = await rootBundle
+        .load('ani_ge_chicken_koke03.mp3')
+        .then((ByteData soundData) {
+      return _audioContext.decodeAudioData(soundData.buffer);
+    });
+    final AudioBuffer sound2 = await rootBundle
+        .load('ani_ge_dog_wan01.mp3')
+        .then((ByteData soundData) {
+      return _audioContext.decodeAudioData(soundData.buffer);
+    });
+    final AudioBuffer sound3 =
+        await rootBundle.load('ani_ge_horse01.mp3').then((ByteData soundData) {
+      return _audioContext.decodeAudioData(soundData.buffer);
+    });
+    final AudioBuffer sound4 =
+        await rootBundle.load('ani_ge_owl02.mp3').then((ByteData soundData) {
+      return _audioContext.decodeAudioData(soundData.buffer);
+    });
+    final AudioBuffer sound5 =
+        await rootBundle.load('ani_ge_ushi02.mp3').then((ByteData soundData) {
+      return _audioContext.decodeAudioData(soundData.buffer);
+    });
+    final AudioBuffer sound6 =
+        await rootBundle.load('ani_ge_flog03.mp3').then((ByteData soundData) {
+      return _audioContext.decodeAudioData(soundData.buffer);
+    });
+    return <AudioBuffer>[sound1, sound2, sound3, sound4, sound5, sound6];
+  }
+
+  final Random random = Random.secure();
+  Future<void> _playEffect() async {
+    if (_soundEffects.isEmpty) {
+      return;
+    }
+    final AudioBuffer audioBuffer =
+        _soundEffects[random.nextInt(_soundEffects.length)];
+
+    _audioContext.createBufferSource()
+      ..buffer = audioBuffer
+      ..connectNode(_audioContext.destination)
+      ..start(0);
   }
 }
