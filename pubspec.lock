@@ -98,7 +98,7 @@ packages:
       name: built_collection
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.2.1"
+    version: "4.2.2"
   built_value:
     dependency: transitive
     description:
@@ -167,7 +167,7 @@ packages:
     description:
       path: "packages/flutter_web"
       ref: HEAD
-      resolved-ref: b3057c5b000e7a1ccc3588084fb24243f08966d6
+      resolved-ref: e2728abe0058d8a268881d82061d81e0171bbe86
       url: "https://github.com/flutter/flutter_web"
     source: git
     version: "0.0.0"
@@ -176,7 +176,7 @@ packages:
     description:
       path: "packages/flutter_web_ui"
       ref: HEAD
-      resolved-ref: b3057c5b000e7a1ccc3588084fb24243f08966d6
+      resolved-ref: e2728abe0058d8a268881d82061d81e0171bbe86
       url: "https://github.com/flutter/flutter_web"
     source: git
     version: "0.0.0"
